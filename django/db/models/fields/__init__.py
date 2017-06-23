@@ -1029,6 +1029,7 @@ class CharField(Field):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.validators.append(validators.MaxLengthValidator(self.max_length))
+        self.validators.append(validators.NullCharValidator())
 
     def check(self, **kwargs):
         errors = super().check(**kwargs)
@@ -2092,6 +2093,10 @@ class SmallIntegerField(IntegerField):
 
 class TextField(Field):
     description = _("Text")
+
+    def __init__(self, *args, **kwargs):
+        super(TextField, self).__init__(*args, **kwargs)
+        self.validators.append(validators.NullCharValidator())
 
     def get_internal_type(self):
         return "TextField"
