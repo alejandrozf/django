@@ -507,11 +507,9 @@ validate_image_file_extension = FileExtensionValidator(
 
 @deconstructible
 class NullCharValidator:
-    """Validate that a string not contains null characters"""
+    """Validate that the string does not contain null characters."""
     text = ''
-    message = _(
-        "Null characters are not allowed."
-    )
+    message = _('Null characters are not allowed.')
     code = 'invalid_char_present'
 
     def __init__(self, message=None, code=None, text=None):
@@ -525,10 +523,7 @@ class NullCharValidator:
     def __call__(self, value):
         # using 'str' because of specialized fields
         if str(value).find('\x00') != -1:
-            raise ValidationError(
-                self.message,
-                code=self.code,
-            )
+            raise ValidationError(self.message, code=self.code)
 
     def __eq__(self, other):
         return (
