@@ -506,7 +506,7 @@ validate_image_file_extension = FileExtensionValidator(
 
 
 @deconstructible
-class NullCharValidator():
+class NullCharValidator:
     """Validate that a string not contains null characters"""
     text = ''
     message = _(
