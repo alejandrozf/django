@@ -1028,8 +1028,7 @@ class CharField(Field):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.validators.append(validators.MaxLengthValidator(self.max_length))
-        self.validators.append(validators.NullCharValidator())
+        self.validators.extend([validators.MaxLengthValidator(self.max_length), validators.NullCharValidator()])
 
     def check(self, **kwargs):
         errors = super().check(**kwargs)
