@@ -123,3 +123,9 @@ class CharFieldTest(FormFieldAssertionsMixin, SimpleTestCase):
     def test_charfield_disabled(self):
         f = CharField(disabled=True)
         self.assertWidgetRendersTo(f, '<input type="text" name="f" id="id_f" disabled required />')
+
+    def test_charfield_has_null_chars_builtin_validator(self):
+        f = CharField()
+        with self.assertRaises(ValidationError) as cm:
+            f.clean('\x00something')
+        self.assertEqual(cm.exception.messages, ['Null characters are not allowed.'])
