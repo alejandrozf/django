@@ -40,7 +40,8 @@ class TextFieldTests(TestCase):
         self.assertEqual(p.body, 'Smile 😀.')
 
     def test_textfield_has_null_chars_builtin_validator(self):
-        p = Post(title='some-title', body='\x00something')
+        f = models.TextField()
+        f_form = f.formfield()
         with self.assertRaises(ValidationError) as cm:
-            p.full_clean()
+            f_form.clean('\x00something')
         self.assertEqual(cm.exception.messages, ['Null characters are not allowed.'])
